@@ -1,0 +1,48 @@
+.list-text-reviews li .reviews-item {
+  background: #f2f3f5;
+  font-size: 16px;
+  color: #1c1e21;
+  border-radius: 20px;
+  padding: 20px 15px 20px;
+}
+
+ul.list-text-reviews li:nth-child(6n + 1) .user-avatar {
+  background-color: rgb(110, 26, 82);
+}
+
+.user-avatar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(244, 193, 80);
+  font-size: 15px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.mr-2,
+.mx-2 {
+  margin-right: 0.5rem !important;
+}
+
+ul.list-text-reviews .student-info .fullname {
+  font-weight: 600;
+}
+
+ul.list-text-reviews .show-star {
+  font-size: 12px;
+  padding: 10px 0px;
+}
+.show-star i {
+  color: #f4c150;
+}
+
+.fa,
+.fas {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
