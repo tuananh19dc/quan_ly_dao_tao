@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 15, 2022 lúc 09:19 AM
+-- Thời gian đã tạo: Th4 15, 2022 lúc 09:36 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -20,6 +20,228 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `quan_ly_nhan_su`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chinhanh`
+--
+
+CREATE TABLE `chinhanh` (
+  `machinhanh` int(11) NOT NULL,
+  `tenchinhanh` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chitiethopdong`
+--
+
+CREATE TABLE `chitiethopdong` (
+  `mahopdong` int(11) NOT NULL,
+  `manhanvien` int(11) NOT NULL,
+  `ngaybatdau` date NOT NULL,
+  `ngauketthuc` date NOT NULL,
+  `ghichu` text COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chitietkhenthuong`
+--
+
+CREATE TABLE `chitietkhenthuong` (
+  `makhenthuong` int(11) NOT NULL,
+  `manhanvien` int(11) NOT NULL,
+  `ngaykhenthuong` date NOT NULL,
+  `tienthuong` int(11) NOT NULL,
+  `ghichu` text COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chitietngoaingu`
+--
+
+CREATE TABLE `chitietngoaingu` (
+  `mangoaingu` int(11) NOT NULL,
+  `manhanvien` int(11) NOT NULL,
+  `thoigian` int(11) NOT NULL,
+  `trinhdo` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `ghichu` text COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chucvu`
+--
+
+CREATE TABLE `chucvu` (
+  `machucvu` int(11) NOT NULL,
+  `tenchucvu` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `phucap` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chuongtrinhdaotao`
+--
+
+CREATE TABLE `chuongtrinhdaotao` (
+  `id` int(11) NOT NULL,
+  `manhanvien` int(11) DEFAULT NULL,
+  `ten_kh` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `noi_dung` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `doi_tuong_dt` enum('Toàn bộ nhân sự','Nhân viên phòng kinh doanh','Nhân viên phòng lập trình','Ban quản lý, giám đốc, lãnh đạo') COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `hinh_anh` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `id_dm` int(11) NOT NULL,
+  `ngaybd` date DEFAULT NULL,
+  `ngaykt` date DEFAULT NULL,
+  `ghichu` text COLLATE utf8mb4_vietnamese_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chuongtrinhdaotao`
+--
+
+INSERT INTO `chuongtrinhdaotao` (`id`, `manhanvien`, `ten_kh`, `noi_dung`, `doi_tuong_dt`, `hinh_anh`, `id_dm`, `ngaybd`, `ngaykt`, `ghichu`) VALUES
+(1, 33, 'Khóa Học Về Tuân Thủ', 'Khoá học nhằm giúp nhân viên hiểu hơn về các quy định tuân thủ của doanh nghiệp và luật pháp', 'Toàn bộ nhân sự', 'banner-nhansuleanh2.jpg', 1, '2022-04-30', '2022-04-30', NULL),
+(2, NULL, 'Bảo Mật Thông Tin​', 'Khoá học giúp nâng cao kiến thức cho người học về các quy định bảo mật thông tin của doanh nghiệp', 'Toàn bộ nhân sự', 'khoa-hoc-luyen-thi-chung-chi-tin-hoc-van-phong.jpg', 1, '0000-00-00', '0000-00-00', NULL),
+(3, NULL, 'Quan hệ khách hàng: xây dựng lòng tin', 'Áp dụng tốt bài học để có được lòng tin từ khách hàng.  Biết cách nâng cao hình ảnh của công ty, thiết lập liên lạc chặt chẽ với khách hàng và xác định cách quản lý các tình huống nhạy cảm.', 'Nhân viên phòng kinh doanh', 'z3207255565614-8965070ce5e22470b851f8e4fd1f1f23.jpg', 2, '0000-00-00', '0000-00-00', NULL),
+(4, NULL, 'Chăm sóc khách hàng chuyên nghiệp', 'Hiểu được tầm quan trọng của dịch vụ khách hàng và sự cần thiết phải có dịch vụ chăm sóc khách hàng                                                                 - Nắm vững các lỹ năng dành cho người làm dịch vụ chăm sóc khách hàng                                                                                     - Xây dựng quy trình, chiến lược chăm sóc khách hàng', 'Nhân viên phòng kinh doanh', 'khoa-hoc-kiem-thu-phan-mem.jpg', 2, NULL, NULL, NULL),
+(5, NULL, 'Khóa học Tin học cơ bản', 'Nhằm giúp nhân viên từ thấp đến cao có kiến thức đầy đủ về cơ sở công nghệ thông tin được sử dụng trong hệ thống kỹ thuật số và kiến thức về các thuật ngữ liên quan.', 'Toàn bộ nhân sự', 'khoa-hoc-tin-hoc-van-phong-min.jpg', 3, '0000-00-00', '0000-00-00', NULL),
+(6, NULL, 'Khoá học về Phát triển hệ thống', 'Giúp nhân viên hiểu hơn về các phương pháp tiêu chuẩn, mới, kiến thức và thuật ngữ liên quan về Phát triển hệ thống máy tính.\r\n- Giải thích về Cơ sở của quản lý phát triển (PERT, phương pháp Thác nước, etc.)\r\n-Giải thích về các công cụ được sử dụng khi phát triển hệ thống (Công cụ xử lý ngôn ngữ, IDE, ICE)\r\n- Giải thích về quy trình phát triển tiêu chuẩn của phần mềm (Xác định yêu cầu, Thiết kế, etc)\r\n- Giải thích về hướng đối tượng (Khái niệm, Mô hình hoá, UML, etc)', 'Nhân viên phòng lập trình', 'khoa-hoc-kiem-thu-phan-mem.jpg', 3, NULL, NULL, NULL),
+(7, NULL, 'Kỹ năng cảm xúc của nhà quản lý', 'Học cách trở thành người quản lý tốt hơn nhờ thành công quản lý cảm xúc chính mình.\r\nBằng cách xác định hồ sơ cảm xúc của bạn, sẽ có khả năng dự đoán các tình huống nhạy cảm chính xác hơn.\r\nVà bằng cách hiểu cách cảm xúc hoạt động, sẽ có thể xây dựng tốt hơn những tác động tích cực của cảm xúc.', 'Ban quản lý, giám đốc, lãnh đạo', 'banner-nhansuleanh2.jpg', 4, '0000-00-00', '0000-00-00', NULL),
+(8, NULL, 'Bồi dưỡng và duy trì động lực', 'Học cách khai phá năng lượng nhóm để tăng hiệu suất tập thể.\r\nCó thể xác định các trình điều khiển động lực của đồng nghiệp và có hành động thích hợp để giữ cho động lực cho họ.\r\n Có khả năng thúc đẩy tiến độ của công việc ủy thác và ủy thác một cách hiệu quả.', 'Ban quản lý, giám đốc, lãnh đạo', 'khoa-hoc-kiem-thu-phan-mem.jpg', 4, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chuyenmon`
+--
+
+CREATE TABLE `chuyenmon` (
+  `machuyenmon` int(11) NOT NULL,
+  `tenchuyenmon` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `ho_ten` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `tuoi` int(5) DEFAULT NULL,
+  `gioi_tinh` enum('nam','nu') COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `gmail` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `sdt` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `dia_chi` text COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `qua_vong` enum('1','0') COLLATE utf8mb4_vietnamese_ci DEFAULT '0',
+  `mo_ta` text COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `hinh_anh` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT 'meo.jpg',
+  `hoc_van` enum('dh','cd','tc','khac') COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `chuc_vu` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `luong` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `customers`
+--
+
+INSERT INTO `customers` (`id`, `ho_ten`, `tuoi`, `gioi_tinh`, `gmail`, `sdt`, `dia_chi`, `qua_vong`, `mo_ta`, `hinh_anh`, `hoc_van`, `chuc_vu`, `luong`) VALUES
+(15, 'Lê Văn Tích', 22, 'nam', 'tich@gmail.com', '0326589661', 'Diễn Châu - Nghệ An', '0', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 'meo.jpg', 'dh', 'giám đốc', 0),
+(16, 'Nguyễn Văn Anh', 22, 'nam', 'vananhdc@gmail.com', '0326589662', 'Diễn Châu - Nghệ An', '1', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 'meo.jpg', 'cd', 'giám đốc', 0),
+(17, 'Nguyễn Văn Sáng', 22, 'nam', 'vansang@gmail.com', '0326589663', 'Diễn Châu - Nghệ An', '0', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 'meo.jpg', 'dh', 'giám đốc', 0),
+(18, 'Trần Văn Nguyên', 22, 'nam', 'vannguyen@gmail.com', '0326589664', 'Diễn Châu - Nghệ An', '1', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 'meo.jpg', 'dh', 'giám đốc', 0),
+(19, 'Lê Văn Thiện', 22, 'nam', 'thien@gmail.com', '0326589665', 'Diễn Châu - Nghệ An', '0', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 'meo.jpg', 'dh', 'giám đốc', 0),
+(20, 'Nguyễn Văn Linh', 22, 'nam', 'vanlinh@gmail.com', '0326589666', 'Diễn Châu - Nghệ An', '1', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 'meo.jpg', 'dh', 'giám đốc', 0),
+(21, '', 22, 'nam', '', '0328563729', 'nghệ an ', '0', 'ehhee', NULL, 'dh', 'giám đốc', 10),
+(23, 'Thái Bá Tuấn Em', 21, 'nam', 'tuaaa@gmail.com', '0326543226', 'Diễn Châu - Nghệ An nè', '1', 'aaaaaaaaaaaaa\r\n', NULL, 'dh', 'giám đốc nè', 100000),
+(25, 'Trần Văn Bình', 50, 'nam', 'binh@gmail.com', '1111111111', 'Diễn Châu - Nghệ An nè', '1', 'ok', NULL, 'dh', 'giám đốc nè', 100000);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `daotao`
+--
+
+CREATE TABLE `daotao` (
+  `id` int(11) NOT NULL,
+  `ten_dm` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `landaotao` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `daotao`
+--
+
+INSERT INTO `daotao` (`id`, `ten_dm`, `landaotao`) VALUES
+(1, 'Kỹ năng mềm', 0),
+(2, 'Kỹ năng bán hàng', 0),
+(3, 'Công nghệ thông tin', 0),
+(4, 'Quản lý và Lãnh đạo', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `hopdonglaodong`
+--
+
+CREATE TABLE `hopdonglaodong` (
+  `mahopdong` int(11) NOT NULL,
+  `tenhopdong` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `loaihopdong` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `khenthuong`
+--
+
+CREATE TABLE `khenthuong` (
+  `makhenthuong` int(11) NOT NULL,
+  `manhanvien` int(11) NOT NULL,
+  `maphongban` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2022_04_14_175857_add_nhanvien', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ngoaingu`
+--
+
+CREATE TABLE `ngoaingu` (
+  `mangoaingu` int(11) NOT NULL,
+  `tenngoaingu` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 -- --------------------------------------------------------
 
@@ -134,9 +356,180 @@ INSERT INTO `nhanvien` (`id`, `machucvu`, `machuyenmon`, `mahedaotao`, `maphongb
 (75, NULL, NULL, NULL, NULL, NULL, 'Mark Bernier', 'nam', '5891 Velma Trail\nNew Raul, KS 49128', '864649692', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 27, 'mackenzie51@okuneva.info', '539268310', '0', 'Enim quia incidunt officia laboriosam enim sunt. Et facere fuga alias aut.', 'meo.jpg', NULL, NULL, NULL, '2022-04-14 11:01:31', '2022-04-14 11:01:31'),
 (76, NULL, NULL, NULL, NULL, NULL, 'Odessa Block', 'nam', '856 Ullrich Dam Apt. 674\nCynthiaport, AZ 24564-0203', '403442411', 'Vui tính, hòa đồng, năng động, có trách nhiệm cao trong công việc. ', 26, 'yhermann@goyette.com', '910107597', '0', 'Vel doloribus ad voluptas atque. Quae eligendi nam autem expedita commodi.', 'meo.jpg', NULL, NULL, NULL, '2022-04-14 11:01:31', '2022-04-14 11:01:31');
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `nhan_vien_danh_gia`
+--
+
+CREATE TABLE `nhan_vien_danh_gia` (
+  `id` int(11) NOT NULL,
+  `id_nv` int(11) NOT NULL,
+  `id_kh` int(11) NOT NULL,
+  `danh_gia` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `sao` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `nhan_vien_danh_gia`
+--
+
+INSERT INTO `nhan_vien_danh_gia` (`id`, `id_nv`, `id_kh`, `danh_gia`, `sao`) VALUES
+(1, 33, 2, 'Khóa học tuyệt vời, mọi thứ dễ dàng để xây dựng 1 website hoàn thiện trong thời gian ngắn, cảm ơn thầy vì khóa học ạ &lt;3 , khóa học tuyệt vời!', 5),
+(2, 18, 2, 'Khóa học quá là ok. Nội dung ngắn gọn xúc tích, rõ ràng. Đây là điều rất nhiều người đang cần để tránh khỏi sự mơ hồ khi tự lang thang mày mò trên mạng. Khóa học không những mang lại kiến thức mà còn tạo ra rất nhiều động lực. Xin cám ơn Anh Cương rất nhiều về sự tận tâm.Chúc mọi người học tốt', 5),
+(3, 35, 2, 'Bạn mình học code bên NN, mất 3th để tự code bài đầu tay. Tư vấn cho mình: \"mày phải học offline, online chỉ đóng tiền ngu thôi\". Giờ mình học xong khóa này, mới thấy bạn mình thật sai lầm(mình mất 10 ngày cho giao diện đầu). Học online có thể học bất cứ lúc nào mình thích, xem lại những chỗ chưa hiểu. Có thể kéo dài hay rút ngắn thời gian do mình chủ động, không cần phải xách xe đi học. Nhưng quan trọng nhất, là được thầy hỗ trợ gần như 24/7 (5h sáng tới 23h đêm), cực kỳ nhiệt tình và tận tâm. Đó là lý do mình đăng ký full option với thầy Cương ^^.', 4),
+(4, 36, 2, 'Khóa học rất tuyệt vời, cảm ơn thầy Cương đã cho em những kiến thức và những trải nghiệm bổ ích. Nó là một khóa học không thể bỏ qua. Chúc thầy nhiều sức khỏe!', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `phieuluong`
+--
+
+CREATE TABLE `phieuluong` (
+  `maphieuluong` int(11) NOT NULL,
+  `manhanvien` int(11) NOT NULL,
+  `luongcoban` int(11) NOT NULL,
+  `hesoluong` int(11) NOT NULL,
+  `tienthuong` int(11) NOT NULL,
+  `phucap` int(11) NOT NULL,
+  `baohiem` int(11) NOT NULL,
+  `tonglinh` int(11) NOT NULL,
+  `ngaylinh` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `phongban`
+--
+
+CREATE TABLE `phongban` (
+  `maphongban` int(11) NOT NULL,
+  `tenphongban` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `trinhdohocvan`
+--
+
+CREATE TABLE `trinhdohocvan` (
+  `mahedaotao` int(11) NOT NULL,
+  `tenhedaotao` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `namtotnghiep` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `role` enum('admin','nv','hlv') COLLATE utf8mb4_vietnamese_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
+(1, 'tuhan123', 'Han123123', 'admin'),
+(2, 'tuananh123', 'Tuan123123', 'hlv');
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `chinhanh`
+--
+ALTER TABLE `chinhanh`
+  ADD PRIMARY KEY (`machinhanh`);
+
+--
+-- Chỉ mục cho bảng `chitiethopdong`
+--
+ALTER TABLE `chitiethopdong`
+  ADD PRIMARY KEY (`mahopdong`),
+  ADD KEY `fk_hopdong_nhanvien` (`manhanvien`);
+
+--
+-- Chỉ mục cho bảng `chitietkhenthuong`
+--
+ALTER TABLE `chitietkhenthuong`
+  ADD PRIMARY KEY (`makhenthuong`),
+  ADD KEY `fk_khenthuong_nhanvien` (`manhanvien`);
+
+--
+-- Chỉ mục cho bảng `chitietngoaingu`
+--
+ALTER TABLE `chitietngoaingu`
+  ADD PRIMARY KEY (`mangoaingu`),
+  ADD KEY `fk_ngoaingu_nhanvien` (`manhanvien`);
+
+--
+-- Chỉ mục cho bảng `chucvu`
+--
+ALTER TABLE `chucvu`
+  ADD PRIMARY KEY (`machucvu`);
+
+--
+-- Chỉ mục cho bảng `chuongtrinhdaotao`
+--
+ALTER TABLE `chuongtrinhdaotao`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_dm` (`id_dm`),
+  ADD KEY `fk_daotao_nhanvien` (`manhanvien`);
+
+--
+-- Chỉ mục cho bảng `chuyenmon`
+--
+ALTER TABLE `chuyenmon`
+  ADD PRIMARY KEY (`machuyenmon`);
+
+--
+-- Chỉ mục cho bảng `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sdt` (`sdt`),
+  ADD UNIQUE KEY `gmail` (`gmail`);
+
+--
+-- Chỉ mục cho bảng `daotao`
+--
+ALTER TABLE `daotao`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hopdonglaodong`
+--
+ALTER TABLE `hopdonglaodong`
+  ADD PRIMARY KEY (`mahopdong`);
+
+--
+-- Chỉ mục cho bảng `khenthuong`
+--
+ALTER TABLE `khenthuong`
+  ADD PRIMARY KEY (`makhenthuong`);
+
+--
+-- Chỉ mục cho bảng `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `ngoaingu`
+--
+ALTER TABLE `ngoaingu`
+  ADD PRIMARY KEY (`mangoaingu`);
 
 --
 -- Chỉ mục cho bảng `nhanvien`
@@ -150,8 +543,119 @@ ALTER TABLE `nhanvien`
   ADD KEY `fk_trinhdo` (`mahedaotao`);
 
 --
+-- Chỉ mục cho bảng `nhan_vien_danh_gia`
+--
+ALTER TABLE `nhan_vien_danh_gia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_danhgia_nv` (`id_nv`),
+  ADD KEY `fk_danhgia_kh` (`id_kh`);
+
+--
+-- Chỉ mục cho bảng `phieuluong`
+--
+ALTER TABLE `phieuluong`
+  ADD PRIMARY KEY (`maphieuluong`),
+  ADD KEY `fk_phieuluong` (`manhanvien`);
+
+--
+-- Chỉ mục cho bảng `phongban`
+--
+ALTER TABLE `phongban`
+  ADD PRIMARY KEY (`maphongban`);
+
+--
+-- Chỉ mục cho bảng `trinhdohocvan`
+--
+ALTER TABLE `trinhdohocvan`
+  ADD PRIMARY KEY (`mahedaotao`);
+
+--
+-- Chỉ mục cho bảng `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
+
+--
+-- AUTO_INCREMENT cho bảng `chinhanh`
+--
+ALTER TABLE `chinhanh`
+  MODIFY `machinhanh` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `chitiethopdong`
+--
+ALTER TABLE `chitiethopdong`
+  MODIFY `mahopdong` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `chitietkhenthuong`
+--
+ALTER TABLE `chitietkhenthuong`
+  MODIFY `makhenthuong` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `chitietngoaingu`
+--
+ALTER TABLE `chitietngoaingu`
+  MODIFY `mangoaingu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `chucvu`
+--
+ALTER TABLE `chucvu`
+  MODIFY `machucvu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `chuongtrinhdaotao`
+--
+ALTER TABLE `chuongtrinhdaotao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT cho bảng `chuyenmon`
+--
+ALTER TABLE `chuyenmon`
+  MODIFY `machuyenmon` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT cho bảng `daotao`
+--
+ALTER TABLE `daotao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `hopdonglaodong`
+--
+ALTER TABLE `hopdonglaodong`
+  MODIFY `mahopdong` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `khenthuong`
+--
+ALTER TABLE `khenthuong`
+  MODIFY `makhenthuong` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `ngoaingu`
+--
+ALTER TABLE `ngoaingu`
+  MODIFY `mangoaingu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `nhanvien`
@@ -160,8 +664,66 @@ ALTER TABLE `nhanvien`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
+-- AUTO_INCREMENT cho bảng `nhan_vien_danh_gia`
+--
+ALTER TABLE `nhan_vien_danh_gia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `phieuluong`
+--
+ALTER TABLE `phieuluong`
+  MODIFY `maphieuluong` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `phongban`
+--
+ALTER TABLE `phongban`
+  MODIFY `maphongban` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `trinhdohocvan`
+--
+ALTER TABLE `trinhdohocvan`
+  MODIFY `mahedaotao` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `chitiethopdong`
+--
+ALTER TABLE `chitiethopdong`
+  ADD CONSTRAINT `fk_hopdong` FOREIGN KEY (`mahopdong`) REFERENCES `hopdonglaodong` (`mahopdong`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_hopdong_nhanvien` FOREIGN KEY (`manhanvien`) REFERENCES `nhanvien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `chitietkhenthuong`
+--
+ALTER TABLE `chitietkhenthuong`
+  ADD CONSTRAINT `fk_khenthuong` FOREIGN KEY (`makhenthuong`) REFERENCES `khenthuong` (`makhenthuong`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_khenthuong_nhanvien` FOREIGN KEY (`manhanvien`) REFERENCES `nhanvien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `chitietngoaingu`
+--
+ALTER TABLE `chitietngoaingu`
+  ADD CONSTRAINT `fk_ngoaingu` FOREIGN KEY (`mangoaingu`) REFERENCES `ngoaingu` (`mangoaingu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_ngoaingu_nhanvien` FOREIGN KEY (`manhanvien`) REFERENCES `nhanvien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `chuongtrinhdaotao`
+--
+ALTER TABLE `chuongtrinhdaotao`
+  ADD CONSTRAINT `fk_daotao_nhanvien` FOREIGN KEY (`manhanvien`) REFERENCES `nhanvien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_dm` FOREIGN KEY (`id_dm`) REFERENCES `daotao` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `nhanvien`
@@ -172,6 +734,19 @@ ALTER TABLE `nhanvien`
   ADD CONSTRAINT `fk_chuyenmon` FOREIGN KEY (`machuyenmon`) REFERENCES `chuyenmon` (`machuyenmon`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_phongban` FOREIGN KEY (`maphongban`) REFERENCES `phongban` (`maphongban`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_trinhdo` FOREIGN KEY (`mahedaotao`) REFERENCES `trinhdohocvan` (`mahedaotao`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `nhan_vien_danh_gia`
+--
+ALTER TABLE `nhan_vien_danh_gia`
+  ADD CONSTRAINT `fk_danhgia_kh` FOREIGN KEY (`id_kh`) REFERENCES `chuongtrinhdaotao` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_danhgia_nv` FOREIGN KEY (`id_nv`) REFERENCES `nhanvien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `phieuluong`
+--
+ALTER TABLE `phieuluong`
+  ADD CONSTRAINT `fk_phieuluong` FOREIGN KEY (`manhanvien`) REFERENCES `nhanvien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
